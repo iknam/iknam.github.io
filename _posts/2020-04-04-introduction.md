@@ -3,6 +3,15 @@ layout: post
 title: 소개타이틀
 ---
 
+#아두이노
+https://wikidocs.net/30758
+https://codingrun.com/64
+https://whitewing4139.tistory.com/category/Programming/Arduino%20Uno
+
+#딥러닝 & 머신러닝
+https://www.edwith.org/ai215/lecture/355341?isDesc=false
+https://sacko.tistory.com/61?category=630831
+
 *The Strange Case of Dr. Jekyll and Mr. Hyde* tells the story of a lawyer investigating the connection of two persons, Dr. Henry Jekyll and Mr. Edward Hyde. Chief among the novel's supporting cast is a man by the name of Mr. Poole, Dr. Jekyll's loyal butler.
 
 -----
