@@ -2,6 +2,15 @@
 layout: post
 title: 소개타이틀
 ---
+### 하드웨어
+http://recipes.egloos.com/
+
+https://www.nandland.com/
+
+https://blog.naver.com/tlsrka649
+
+https://m.blog.naver.com/ansdbtls4067
+
 
 ### 아두이노
 (https://wikidocs.net/30758)
