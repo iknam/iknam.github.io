@@ -1,4 +1,4 @@
 ## github.io
 
 hello
-[link](https://iknam.github.io/CARD.html)
+[link](https://iknam.github.io/CARD.md)
