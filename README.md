@@ -1,4 +1,4 @@
-# github.io
+## github.io
 
 hello
-[link](https://iknam.github.com/README.md)
+[link](https://iknam.github.io/README.md)
