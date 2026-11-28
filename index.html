@@ -1,15 +1,17 @@
+
+---
+layout: default
+title: ILKWON NAM
+---
+
 <div class="blog-home">
   <h1>ILKWON NAM</h1>
-  <p class="subtitle">
-    Abstract Strategy Games & Board Game Studies
-  </p>
+  <p class="subtitle">Abstract Strategy Games & Board Game Studies</p>
 
   <div class="blog-heading">
     <h2>Latest Articles</h2>
-    <a href="https://blog.naver.com/iknam86"
-       target="_blank"
-       rel="noopener">
-      Naver Blog →
+    <a href="https://blog.naver.com/iknam86" target="_blank" rel="noopener">
+      네이버 블로그 전체 글 →
     </a>
   </div>
 
@@ -17,3 +19,148 @@
     <p>게시글을 불러오는 중...</p>
   </div>
 </div>
+
+<style>
+.blog-home {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+.blog-home .subtitle {
+  color: #888;
+  margin-bottom: 45px;
+}
+
+.blog-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.blog-heading h2 {
+  font-size: 1.5rem;
+}
+
+.blog-heading a {
+  font-size: 0.9rem;
+}
+
+.feed-item {
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.feed-item h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.feed-item h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.feed-item h3 a:hover {
+  text-decoration: underline;
+}
+
+.feed-date {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.feed-description {
+  color: #666;
+  font-size: 0.95rem;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+</style>
+
+<script>
+async function loadNaverBlog() {
+  const feed = document.getElementById("naver-feed");
+
+  const rssUrl =
+    "https://rss.blog.naver.com/iknam86.xml";
+
+  const proxyUrl =
+    "https://proxy.cors.dev/" + rssUrl;
+
+  try {
+    const response = await fetch(proxyUrl);
+
+    if (!response.ok) {
+      throw new Error("RSS 요청 실패");
+    }
+
+    const xmlText = await response.text();
+    const xml = new DOMParser().parseFromString(
+      xmlText,
+      "text/xml"
+    );
+
+    if (xml.querySelector("parsererror")) {
+      throw new Error("RSS 형식 오류");
+    }
+
+    const posts = [...xml.querySelectorAll("item")];
+
+    if (posts.length === 0) {
+      throw new Error("게시글이 없습니다.");
+    }
+
+    feed.replaceChildren();
+
+    posts.slice(0, 10).forEach(post => {
+      const title = post.querySelector("title")?.textContent || "제목 없음";
+      const link = post.querySelector("link")?.textContent || "";
+      const date = post.querySelector("pubDate")?.textContent || "";
+      const description =
+        post.querySelector("description")?.textContent || "";
+
+      const item = document.createElement("article");
+      item.className = "feed-item";
+
+      const heading = document.createElement("h3");
+      const anchor = document.createElement("a");
+
+      anchor.textContent = title;
+      anchor.href = link;
+      anchor.target = "_blank";
+      anchor.rel = "noopener noreferrer";
+
+      heading.appendChild(anchor);
+
+      const dateElement = document.createElement("div");
+      dateElement.className = "feed-date";
+
+      const parsedDate = new Date(date);
+      dateElement.textContent = isNaN(parsedDate)
+        ? date
+        : parsedDate.toLocaleDateString("ko-KR");
+
+      const summary = document.createElement("p");
+      summary.className = "feed-description";
+      summary.textContent = description
+        .replace(/<[^>]*>/g, " ")
+        .trim()
+        .slice(0, 180);
+
+      item.append(heading, dateElement, summary);
+      feed.appendChild(item);
+    });
+
+  } catch (error) {
+    feed.textContent =
+      "게시글을 불러오지 못했습니다. 네이버 블로그에서 확인해주세요.";
+
+    console.error(error);
+  }
+}
+
+loadNaverBlog();
+</script>
